@@ -6,11 +6,8 @@
     <title>Butterworth Pub</title>
     <style>
         body {
-            /* Dark blue background */
-            background-color: #0B192C; 
-            
-            /* Lighter blue text */
-            color: #87CEEB; 
+            /* Cobalt blue background */
+            background-color: #0047AB; 
             
             /* Removes default browser margins */
             margin: 0; 
@@ -18,19 +15,27 @@
             /* Makes the body take up the full height of the screen */
             height: 100vh; 
             
-            /* Flexbox makes centering extremely easy */
+            /* Flexbox to perfectly center the image horizontally and vertically */
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        .center-image {
+            /* Navy blue outline (8 pixels thick, solid line) */
+            border: 8px solid #000080; 
             
-            /* Clean, modern font style and size */
-            font-family: Arial, sans-serif;
-            font-size: 3rem;
-            font-weight: bold;
+            /* Prevents the image from being wider than 80% of the screen */
+            max-width: 80%; 
+            
+            /* Prevents the image from being taller than 80% of the screen height */
+            max-height: 80vh; 
         }
     </style>
 </head>
 <body>
-    butterworthpub.com
+
+    <img src="bpub.png" alt="Butterworth Pub Landscape" class="center-image">
+
 </body>
 </html>
