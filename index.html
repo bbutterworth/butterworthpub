@@ -3,47 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Butterworth Pub</title>
+    <meta name="robots" content="noindex, nofollow">
+    <title>World Cup Weekend | Backyard Viewing</title>
     <style>
+        :root {
+            --pitch-green: #1b4d3e;
+            --grass-bright: #2ecc71;
+            --gold: #f1c40f;
+            --white: #ffffff;
+            --off-white: #f4f7f6;
+            --dark-green: #113329;
+        }
+
         body {
-            /* Cobalt blue background */
-            background-color: #002D04;
-            /*#0047AB; */
-           
-           
-            
-            /* Lighter blue text */
-            color: #000000
-                /*#0B192C*/
-            /*#87CEEB;*/
-            
-            /* Removes default browser margins */
-            margin: 0; 
-            
-            /* Makes the body take up the full height of the screen */
-            height: 100vh; 
-            
-            /* Flexbox to perfectly center the image horizontally and vertically */
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--pitch-green);
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+            color: #333;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        .center-image {
-            /* Navy blue outline (8 pixels thick, solid line) */
-            border: 8px solid #000000; 
-            
-            /* Prevents the image from being wider than 80% of the screen */
-            max-width: 80%; 
-            
-            /* Prevents the image from being taller than 80% of the screen height */
-            max-height: 80vh; 
+        .card {
+            background: var(--off-white);
+            max-width: 600px;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            position: relative;
         }
+
+        /* Animated Flag Banner */
+        .flag-banner {
+            background: var(--dark-green);
+            color: white;
+            font-size: 14px;
+            padding: 8px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .flag-banner span {
+            display: inline-block;
+            animation: scroll-left 40s linear infinite;
+            letter-spacing: 4px;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .header {
+            background: var(--grass-bright);
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        .content { padding: 30px; }
+
+        h1 { margin: 0; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 2px; }
+        h2 { color: var(--pitch-green); border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-top: 0; }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .schedule-table td {
+            padding: 14px 5px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+
+        .time { font-weight: bold; color: #777; width: 90px; }
+        .match { font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .flag { font-size: 1.4rem; line-height: 1; }
+
+        .tag-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid white;
+        }
+
+        .info-box {
+            background: #e8f5e9;
+            padding: 15px;
+            border-left: 5px solid var(--grass-bright);
+            margin: 20px 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Access Gate */
+        #gatekeeper { text-align: center; padding: 60px 20px; }
+        input { padding: 12px; width: 70%; border: 2px solid #ddd; border-radius: 6px; margin-bottom: 10px; }
+        button { 
+            background: var(--pitch-green); color: white; border: none; 
+            padding: 12px 30px; border-radius: 6px; cursor: pointer; font-weight: bold;
+        }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <img src="bpub.png" alt="Butterworth Pub Landscape" class="center-image">
+    <div class="card">
+        <!-- Access Section -->
+        <div id="gatekeeper">
+            <h1 style="color: var(--pitch-green); margin-bottom: 20px;">🏆 World Cup Viewing</h1>
+            <p>Enter the "Secret Play" code to see the schedule</p>
+            <input type="text" id="accessCode" placeholder="Code...">
+            <br>
+            <button onclick="unlock()">Check In</button>
+        </div>
 
+        <!-- Main Content (Hidden Initially) -->
+        <div id="main-site" class="hidden">
+            
+            <!-- Scrolling Flag Banner -->
+            <div class="flag-banner">
+                <span>
+                    🇲🇽 🇿🇦 🇰🇷 🇨🇿 🇨🇦 🇧🇦 🇺🇸 🇵🇾 🇶🇦 🇨🇭 🇧🇷 🇲🇦 🇭🇹 🏴󠁧󠁢󠁳󠁣󠁴󠁿 🇦🇺 🇹🇷 🇩🇪 🇨🇼 🇳🇱 🇯🇵 🇨🇮 🇪🇨 🇸🇪 🇹🇳 🇪🇸 🇨🇻 🇧🇪 🇪🇬 🇸🇦 🇺🇾 🇮🇷 🇳🇿 🇫🇷 🇸🇳 🇮🇶 🇳🇴 🇦🇷 🇩🇿 🇦🇹 🇯🇴 🇵🇹 🇨🇩 🏴󠁧󠁢󠁥󠁮󠁧󠁿 🇭🇷 🇬🇭 🇵🇦 🇺🇿 🇨🇴 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 🇲🇽 🇿🇦 🇰🇷 🇨🇿 🇨🇦 🇧🇦 🇺🇸 🇵🇾 🇶🇦 🇨🇭 🇧🇷 🇲🇦 🇭🇹 🏴󠁧󠁢󠁳󠁣󠁴󠁿 🇦🇺 🇹🇷 🇩🇪 🇨🇼 🇳🇱 🇯🇵 🇨🇮 🇪🇨 🇸🇪 🇹🇳 🇪🇸 🇨🇻 🇧🇪 🇪🇬 🇸🇦 🇺🇾 🇮🇷 🇳🇿 🇫🇷 🇸🇳 🇮🇶 🇳🇴 🇦🇷 🇩🇿 🇦🇹 🇯🇴 🇵🇹 🇨🇩 🏴󠁧󠁢󠁥󠁮󠁧󠁿 🇭🇷 🇬🇭 🇵🇦 🇺🇿 🇨🇴
+                </span>
+            </div>
+
+            <div class="header">
+                <p style="margin: 0; font-weight: bold; color: var(--pitch-green);">THE BACKYARD PITCH</p>
+                <h1>Group Stage Weekend</h1>
+                <div class="tag-container">
+                    <span class="tag">⚽ Full Coverage</span>
+                    <span class="tag">🍔 BBQ Provided</span>
+                    <span class="tag">🐕 Dog Friendly</span>
+                </div>
+            </div>
+
+            <div class="content">
+                <h2>Match Day Schedule</h2>
+                <p style="font-size: 0.85rem; color: #666; margin-top: -5px; margin-bottom: 15px;">*Kickoff times on June 13 in Mountain Time (MDT)</p>
+                
+                <table class="schedule-table">
+                    <tr>
+                        <td class="time">1:00 PM</td>
+                        <td class="match"><span class="flag">🇶🇦</span> Qatar vs Switzerland <span class="flag">🇨🇭</span></td>
+                    </tr>
+                    <tr>
+                        <td class="time">4:00 PM</td>
+                        <td class="match"><span class="flag">🇧🇷</span> Brazil vs Morocco <span class="flag">🇲🇦</span></td>
+                    </tr>
+                    <tr>
+                        <td class="time">7:00 PM</td>
+                        <td class="match"><span class="flag">🇭🇹</span> Haiti vs Scotland <span class="flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span></td>
+                    </tr>
+                    <tr>
+                        <td class="time">10:00 PM</td>
+                        <td class="match"><span class="flag">🇦🇺</span> Australia vs Türkiye <span class="flag">🇹🇷</span></td>
+                    </tr>
+                </table>
+
+                <div class="info-box">
+                    <strong>The Vibe:</strong> We'll have the big screen set up under the shade. The grill will be going all day. Feel free to bring the kids and the dog—there's plenty of room to run around.
+                </div>
+
+                <h2>What to Bring</h2>
+                <ul style="color: #444; line-height: 1.6;">
+                    <li>A lawn chair (if you have a favorite one)</li>
+                    <li>Sunscreen & Sunglasses</li>
+                    <li>Any specific beverages you prefer</li>
+                </ul>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button onclick="alert('Sending RSVP to host...')">RSVP for the Weekend</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function unlock() {
+            const code = document.getElementById('accessCode').value.toLowerCase().trim();
+            if (code === 'goal') {
+                document.getElementById('gatekeeper').classList.add('hidden');
+                document.getElementById('main-site').classList.remove('hidden');
+            } else {
+                alert('Invalid code. Try "goal"');
+            }
+        }
+        
+        document.getElementById("accessCode").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") { unlock(); }
+        });
+    </script>
 </body>
 </html>
