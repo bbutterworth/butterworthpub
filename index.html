@@ -218,7 +218,8 @@
                 <h2>RSVP</h2>
                 <div id="form-container" style="width: 100%; text-align: center; margin-top: 20px;">
                     <!-- PASTE YOUR GOOGLE FORM IFRAME CODE HERE -->
-                    <p style="color: #888; font-style: italic;">(Google Form will appear here)</p>
+                    
+                    <p style="color: #888; font-style: italic;"><iframe src="https://docs.google.com/forms/d/e/1FAIpQLScTq8EYdUijWUab7YDzCuZmXQmkQKmSNgk-cVGMDs017XKSbg/viewform?embedded=true" width="640" height="2494" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe></p>
                 </div>
 
             </div>
@@ -245,29 +246,76 @@
         // RSVP FLAG FETCHING SCRIPT
         // ----------------------------------------------------
         
-        // 1. Paste your published Google Sheet CSV link here:
-        const csvUrl = 'YOUR_GOOGLE_SHEETS_CSV_LINK_HERE';
+// 1. Paste your published Google Sheet CSV link here:
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTl9LPUsi3wTXREMYep4rk7LSCjJuRO56BGRMEkXuli2kLZWVnhFVL_XooJv-LPYvpFqPyxD-uTV0bn/pub?gid=1783339152&single=true&output=csv';
+
+        // 2. The Translation Dictionary
+        const flagMap = {
+            "Algeria": "algeria.png",
+            "Argentina": "argentina.png",
+            "Australia": "australia.png",
+            "Austria": "austria.png",
+            "Belgium": "belgium.png",
+            "Bosnia and Herzegovina": "bosniaherzegovina.png",
+            "Brazil": "brazil.png",
+            "Cabo Verde": "capeverde.png",
+            "Canada": "canada.png",
+            "Colombia": "colombia.png",
+            "Congo DR": "drcongo.png",
+            "Croatia": "croatia.png",
+            "Curaçao": "curacao.png",
+            "Czechia": "czechrepublic.png",
+            "Ecuador": "ecuador.png",
+            "Egypt": "egypt.png",
+            "England": "england.png",
+            "France": "france.png",
+            "Germany": "germany.png",
+            "Ghana": "ghana.png",
+            "Haiti": "haiti.png",
+            "IR Iran": "iran.png",
+            "Iraq": "iraq.png",
+            "Ivory Coast": "ivorycoast.png",
+            "Japan": "japan.png",
+            "Jordan": "jordan.png",
+            "Mexico": "mexico.png",
+            "Morocco": "morroco.png", // Matches the typo in your file exactly
+            "Netherlands": "netherlands.png",
+            "New Zealand": "newzealand.png",
+            "Norway": "norway.png",
+            "Panama": "panama.png",
+            "Paraguay": "paraguay.png",
+            "Portugal": "portugal.png",
+            "Qatar": "qatar.png",
+            "Saudi Arabia": "saudiarabia.png",
+            "Scotland": "scotland.png",
+            "Senegal": "senegal.png",
+            "South Africa": "southafrica.png",
+            "South Korea": "southkorea.png",
+            "Spain": "spain.png",
+            "Sweden": "sweden.png",
+            "Switzerland": "switzerland.png",
+            "Tunisia": "tunisia.png",
+            "Türkiye": "turkiye.png",
+            "United States": "usa.png",
+            "Uruguay": "uruguay.png",
+            "Uzbekistan": "uzbekistan.png"
+        };
 
         async function loadFlags() {
             try {
-                // If you don't have the link yet, this stops the code from breaking
                 if(csvUrl === 'YOUR_GOOGLE_SHEETS_CSV_LINK_HERE') return;
 
                 const response = await fetch(csvUrl);
                 const data = await response.text();
                 
-                // Split by rows and skip the header row
                 const rows = data.split('\n').slice(1);
                 const countryData = {};
                 
                 rows.forEach(row => {
-                    // Splits columns by comma (Timestamp, Name, Guests, Country)
-                    // Note: If names have commas in them, this will misalign, 
-                    // so ask guests for simple first names!
+                    // Split the row. Assuming: [Timestamp, Name, Guests, Team]
                     const cols = row.split(',');
                     if(cols.length >= 4) {
                         const name = cols[1].trim();
-                        // Adjust the column index below if 'Team Pick' is not your 4th question
                         const country = cols[3].trim(); 
                         
                         if(country) {
@@ -280,16 +328,15 @@
                 const showcase = document.getElementById('flag-showcase');
                 showcase.innerHTML = ''; 
                 
-                // Create an image for every logged country
                 for (const [country, names] of Object.entries(countryData)) {
+                    // Look up the exact filename in our dictionary. 
+                    // If it isn't found for some reason, default to the country name.
+                    const exactFileName = flagMap[country] || (country + '.png');
+
                     const img = document.createElement('img');
-                    
-                    // Forces the filename to perfectly match the form response
-                    img.src = country + '.png'; 
+                    img.src = exactFileName; 
                     img.alt = country;
                     img.className = 'supporter-flag';
-                    
-                    // This creates the hover effect with all the names
                     img.title = country + " Supporters:\n" + names.join('\n'); 
                     
                     showcase.appendChild(img);
