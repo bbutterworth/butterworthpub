@@ -32,7 +32,7 @@
 
         .card {
             background: var(--off-white);
-            max-width: 700px; /* Widened from 600px */
+            max-width: 700px; 
             width: 100%;
             border-radius: 12px;
             overflow: hidden;
@@ -70,7 +70,7 @@
 
         /* Event Details Formatting */
         .event-details {
-            font-size: 1.15rem; /* Sized comfortably between h2 and p */
+            font-size: 1.15rem; 
             color: var(--pitch-green);
             margin-bottom: 25px;
             line-height: 1.6;
@@ -151,6 +151,35 @@
             font-size: 0.95rem;
             line-height: 1.5;
         }
+
+        /* Guest List Styles */
+        .guest-list-box {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        #guest-tally {
+            font-weight: bold;
+            color: var(--pitch-green);
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        #guest-names-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            color: #444;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
@@ -225,6 +254,14 @@
                     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScTq8EYdUijWUab7YDzCuZmXQmkQKmSNgk-cVGMDs017XKSbg/viewform?embedded=true" width="100%" height="2494" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
                 </div>
 
+                <h2 style="margin-top: 40px;">Guest List</h2>
+                <div class="guest-list-box">
+                    <div id="guest-tally">0 guests going</div>
+                    <ul id="guest-names-list">
+                        <li style="color: #888; font-style: italic;">Waiting for RSVPs...</li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </div>
@@ -297,16 +334,33 @@
                 const rows = data.split('\n').slice(1);
                 const countryData = {};
                 
-             rows.forEach(row => {
-                    // This smarter split ignores any commas hidden inside dates or answers
+                let totalGuests = 0;
+                let guestListHTML = '';
+                
+                rows.forEach(row => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                     
-                    // Double check your Google Sheet! 
-                    // This assumes Name is Column B (1) and Country is Column D (3)
                     if(cols.length >= 4) {
                         let name = cols[1].replace(/["']/g, "").trim();
+                        let guestCountStr = cols[2].replace(/["']/g, "").trim();
                         let country = cols[3].replace(/["']/g, "").trim(); 
                         
+                        // Parse the guest number. If they type text, default to 0 to prevent breaking.
+                        let guests = parseInt(guestCountStr, 10);
+                        if (isNaN(guests)) guests = 0;
+
+                        // Only add to tally and list if guests > 0
+                        if (guests > 0 && name !== "") {
+                            totalGuests += guests;
+                            
+                            let displayName = name;
+                            if (guests > 1) {
+                                displayName += ` (+${guests - 1})`;
+                            }
+                            guestListHTML += `<li>${displayName}</li>`;
+                        }
+                        
+                        // Still track the country pick, even if guests = 0
                         if(country) {
                             if(!countryData[country]) countryData[country] = [];
                             countryData[country].push(name);
@@ -314,6 +368,14 @@
                     }
                 });
                 
+                // Update Guest Tally & List
+                document.getElementById('guest-tally').innerText = `${totalGuests} guests going`;
+                const guestUl = document.getElementById('guest-names-list');
+                if (guestListHTML !== '') {
+                    guestUl.innerHTML = guestListHTML;
+                }
+                
+                // Update Flag Showcase
                 const showcase = document.getElementById('flag-showcase');
                 showcase.innerHTML = ''; 
                 
@@ -325,7 +387,6 @@
                     img.alt = country;
                     img.className = 'supporter-flag';
                     
-                    // Logic to update the bottom bar on hover or tap
                     img.addEventListener('mouseenter', () => {
                         document.getElementById('supporter-info').innerHTML = `<strong>${country}</strong>: ${names.join(', ')}`;
                     });
@@ -337,11 +398,10 @@
                     showcase.appendChild(img);
                 }
             } catch (e) {
-                console.log('Could not load live flags yet.');
+                console.log('Could not load live data yet.');
             }
         }
 
-        // Fire the function immediately when the page loads
         window.onload = loadFlags;
     </script>
 </body>
