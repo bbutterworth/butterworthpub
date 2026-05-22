@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>World Cup Weekend | Backyard Viewing</title>
+    <title>World Cup Party</title>
     <style>
         :root {
             --pitch-green: #1b4d3e;
@@ -40,40 +40,68 @@
             position: relative;
         }
 
-        /* Animated Flag Banner */
-        .flag-banner {
-            background: var(--dark-green);
-            color: white;
-            font-size: 14px;
-            padding: 8px 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-align: center;
-            border-bottom: 2px solid var(--gold);
-        }
-
-        .flag-banner span {
-            display: inline-block;
-            animation: scroll-left 40s linear infinite;
-            letter-spacing: 4px;
-        }
-
-        @keyframes scroll-left {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
-
         .header {
             background: var(--grass-bright);
             color: white;
             padding: 35px 20px;
             text-align: center;
+            border-bottom: 2px solid var(--gold);
         }
 
         .content { padding: 30px; }
 
         h1 { margin: 0; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 2px; }
         h2 { color: var(--pitch-green); border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-top: 0; }
+
+        .tag-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid white;
+        }
+
+        /* Fan Showcase Section */
+        .showcase-container {
+            background: #e8f5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .flag-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            height: 100px; /* Fixed size container */
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .supporter-flag {
+            /* The flex rules below force the images to shrink smoothly as the box fills up */
+            flex: 0 1 60px;
+            max-height: 40px;
+            min-width: 25px;
+            object-fit: contain;
+            cursor: help;
+            transition: transform 0.2s;
+        }
+
+        .supporter-flag:hover {
+            transform: scale(1.1);
+        }
 
         .schedule-table {
             width: 100%;
@@ -89,21 +117,12 @@
 
         .time { font-weight: bold; color: #777; width: 90px; }
         .match { font-weight: 600; display: flex; align-items: center; gap: 8px; }
-        .flag { font-size: 1.4rem; line-height: 1; }
-
-        .tag-container {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 15px;
-        }
-
-        .tag {
-            background: rgba(255,255,255,0.2);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            border: 1px solid white;
+        
+        .table-flag {
+            width: 24px;
+            height: auto;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
         .info-box {
@@ -131,70 +150,77 @@
     <div class="card">
         <!-- Access Section -->
         <div id="gatekeeper">
-            <h1 style="color: var(--pitch-green); margin-bottom: 20px;">🏆 World Cup Viewing</h1>
+            <h1 style="color: var(--pitch-green); margin-bottom: 20px;">🏆 World Cup Party</h1>
             <p>Enter the "Secret Play" code to see the schedule</p>
             <input type="text" id="accessCode" placeholder="Code...">
             <br>
             <button onclick="unlock()">Check In</button>
         </div>
 
-        <!-- Main Content (Hidden Initially) -->
+        <!-- Main Content -->
         <div id="main-site" class="hidden">
             
-            <!-- Scrolling Flag Banner -->
-            <div class="flag-banner">
-                <span>
-                    🇲🇽 🇿🇦 🇰🇷 🇨🇿 🇨🇦 🇧🇦 🇺🇸 🇵🇾 🇶🇦 🇨🇭 🇧🇷 🇲🇦 🇭🇹 🏴󠁧󠁢󠁳󠁣󠁴󠁿 🇦🇺 🇹🇷 🇩🇪 🇨🇼 🇳🇱 🇯🇵 🇨🇮 🇪🇨 🇸🇪 🇹🇳 🇪🇸 🇨🇻 🇧🇪 🇪🇬 🇸🇦 🇺🇾 🇮🇷 🇳🇿 🇫🇷 🇸🇳 🇮🇶 🇳🇴 🇦🇷 🇩🇿 🇦🇹 🇯🇴 🇵🇹 🇨🇩 🏴󠁧󠁢󠁥󠁮󠁧󠁿 🇭🇷 🇬🇭 🇵🇦 🇺🇿 🇨🇴 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 🇲🇽 🇿🇦 🇰🇷 🇨🇿 🇨🇦 🇧🇦 🇺🇸 🇵🇾 🇶🇦 🇨🇭 🇧🇷 🇲🇦 🇭🇹 🏴󠁧󠁢󠁳󠁣󠁴󠁿 🇦🇺 🇹🇷 🇩🇪 🇨🇼 🇳🇱 🇯🇵 🇨🇮 🇪🇨 🇸🇪 🇹🇳 🇪🇸 🇨🇻 🇧🇪 🇪🇬 🇸🇦 🇺🇾 🇮🇷 🇳🇿 🇫🇷 🇸🇳 🇮🇶 🇳🇴 🇦🇷 🇩🇿 🇦🇹 🇯🇴 🇵🇹 🇨🇩 🏴󠁧󠁢󠁥󠁮󠁧󠁿 🇭🇷 🇬🇭 🇵🇦 🇺🇿 🇨🇴
-                </span>
-            </div>
-
             <div class="header">
                 <p style="margin: 0; font-weight: bold; color: var(--pitch-green);">THE BACKYARD PITCH</p>
-                <h1>Group Stage Weekend</h1>
+                <h1>World Cup Party</h1>
                 <div class="tag-container">
                     <span class="tag">⚽ Full Coverage</span>
-                    <span class="tag">🍔 BBQ Provided</span>
-                    <span class="tag">🐕 Dog Friendly</span>
+                    <span class="tag">🍔 Burgers & Pizza</span>
+                    <span class="tag">🍺 Keg</span>
                 </div>
             </div>
 
             <div class="content">
+                
+                <!-- Live Supporter Showcase -->
+                <div class="showcase-container">
+                    <h3 style="margin:0; color: var(--pitch-green); font-size: 1.1rem;">Supported Teams</h3>
+                    <p style="margin: 5px 0 0 0; font-size: 0.8rem; color: #666;">Hover over a flag to see the fans</p>
+                    <div id="flag-showcase" class="flag-showcase">
+                        <!-- JavaScript will inject flags here automatically -->
+                    </div>
+                </div>
+
                 <h2>Match Day Schedule</h2>
                 <p style="font-size: 0.85rem; color: #666; margin-top: -5px; margin-bottom: 15px;">*Kickoff times on June 13 in Mountain Time (MDT)</p>
                 
                 <table class="schedule-table">
                     <tr>
                         <td class="time">1:00 PM</td>
-                        <td class="match"><span class="flag">🇶🇦</span> Qatar vs Switzerland <span class="flag">🇨🇭</span></td>
+                        <td class="match"><img src="Qatar.png" alt="Qatar" class="table-flag"> Qatar vs Switzerland <img src="Switzerland.png" alt="Switzerland" class="table-flag"></td>
                     </tr>
                     <tr>
                         <td class="time">4:00 PM</td>
-                        <td class="match"><span class="flag">🇧🇷</span> Brazil vs Morocco <span class="flag">🇲🇦</span></td>
+                        <td class="match"><img src="Brazil.png" alt="Brazil" class="table-flag"> Brazil vs Morocco <img src="Morocco.png" alt="Morocco" class="table-flag"></td>
                     </tr>
                     <tr>
                         <td class="time">7:00 PM</td>
-                        <td class="match"><span class="flag">🇭🇹</span> Haiti vs Scotland <span class="flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span></td>
+                        <td class="match"><img src="Haiti.png" alt="Haiti" class="table-flag"> Haiti vs Scotland <img src="Scotland.png" alt="Scotland" class="table-flag"></td>
                     </tr>
                     <tr>
                         <td class="time">10:00 PM</td>
-                        <td class="match"><span class="flag">🇦🇺</span> Australia vs Türkiye <span class="flag">🇹🇷</span></td>
+                        <td class="match"><img src="Australia.png" alt="Australia" class="table-flag"> Australia vs Türkiye <img src="Türkiye.png" alt="Türkiye" class="table-flag"></td>
                     </tr>
                 </table>
 
                 <div class="info-box">
-                    <strong>The Vibe:</strong> We'll have the big screen set up under the shade. The grill will be going all day. Feel free to bring the kids and the dog—there's plenty of room to run around.
+                    Swing by any time from 1:00 pm to Midnight for this open house-style party. We'll have snacks and drinks out all day. We’ll get a keg (Buffalo Gold or Stampede). No need to bring any food/drink, but if you just like cooking feel free to bring a favorite world dish. 
+                    <br><br>
+                    In the evening we'll get a fire and the sauna going. Also, please bring containers to bring some beer home.
                 </div>
 
                 <h2>What to Bring</h2>
                 <ul style="color: #444; line-height: 1.6;">
-                    <li>A lawn chair (if you have a favorite one)</li>
-                    <li>Sunscreen & Sunglasses</li>
-                    <li>Any specific beverages you prefer</li>
+                    <li>a lawn chair</li>
+                    <li>friends/family</li>
                 </ul>
 
-                <div style="text-align: center; margin-top: 30px;">
-                    <button onclick="alert('Sending RSVP to host...')">RSVP for the Weekend</button>
+                <h2>RSVP</h2>
+                <div id="form-container" style="width: 100%; text-align: center; margin-top: 20px;">
+                    <!-- PASTE YOUR GOOGLE FORM IFRAME CODE HERE -->
+                    <p style="color: #888; font-style: italic;">(Google Form will appear here)</p>
                 </div>
+
             </div>
         </div>
     </div>
@@ -205,6 +231,7 @@
             if (code === 'goal') {
                 document.getElementById('gatekeeper').classList.add('hidden');
                 document.getElementById('main-site').classList.remove('hidden');
+                loadFlags(); // Fetch the live data only when they log in
             } else {
                 alert('Invalid code. Try "goal"');
             }
@@ -213,6 +240,64 @@
         document.getElementById("accessCode").addEventListener("keyup", function(event) {
             if (event.key === "Enter") { unlock(); }
         });
+
+        // ----------------------------------------------------
+        // RSVP FLAG FETCHING SCRIPT
+        // ----------------------------------------------------
+        
+        // 1. Paste your published Google Sheet CSV link here:
+        const csvUrl = 'YOUR_GOOGLE_SHEETS_CSV_LINK_HERE';
+
+        async function loadFlags() {
+            try {
+                // If you don't have the link yet, this stops the code from breaking
+                if(csvUrl === 'YOUR_GOOGLE_SHEETS_CSV_LINK_HERE') return;
+
+                const response = await fetch(csvUrl);
+                const data = await response.text();
+                
+                // Split by rows and skip the header row
+                const rows = data.split('\n').slice(1);
+                const countryData = {};
+                
+                rows.forEach(row => {
+                    // Splits columns by comma (Timestamp, Name, Guests, Country)
+                    // Note: If names have commas in them, this will misalign, 
+                    // so ask guests for simple first names!
+                    const cols = row.split(',');
+                    if(cols.length >= 4) {
+                        const name = cols[1].trim();
+                        // Adjust the column index below if 'Team Pick' is not your 4th question
+                        const country = cols[3].trim(); 
+                        
+                        if(country) {
+                            if(!countryData[country]) countryData[country] = [];
+                            countryData[country].push(name);
+                        }
+                    }
+                });
+                
+                const showcase = document.getElementById('flag-showcase');
+                showcase.innerHTML = ''; 
+                
+                // Create an image for every logged country
+                for (const [country, names] of Object.entries(countryData)) {
+                    const img = document.createElement('img');
+                    
+                    // Forces the filename to perfectly match the form response
+                    img.src = country + '.png'; 
+                    img.alt = country;
+                    img.className = 'supporter-flag';
+                    
+                    // This creates the hover effect with all the names
+                    img.title = country + " Supporters:\n" + names.join('\n'); 
+                    
+                    showcase.appendChild(img);
+                }
+            } catch (e) {
+                console.log('Could not load live flags yet.');
+            }
+        }
     </script>
 </body>
 </html>
