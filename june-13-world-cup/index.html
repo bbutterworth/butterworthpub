@@ -19,7 +19,18 @@
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--pitch-green);
-            /* ... keep all your other body settings here ... */
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+            color: #333;
+            margin: 0;
+            /* These lines ensure the body takes up the full space and centers everything */
+            display: flex;
+            justify-content: center; /* Centers horizontally */
+            align-items: flex-start;  /* Keeps the card at the top, not squashed in the middle */
+            min-height: 100vh;
+            width: 100vw;            /* Forces the body to be the full width of the browser */
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         /* This applies Palatino specifically to headers and event details */
