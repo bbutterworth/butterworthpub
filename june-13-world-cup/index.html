@@ -32,7 +32,7 @@
 
         .card {
             background: var(--off-white);
-            max-width: 600px;
+            max-width: 700px; /* Widened from 600px */
             width: 100%;
             border-radius: 12px;
             overflow: hidden;
@@ -66,6 +66,14 @@
             border-radius: 20px;
             font-size: 0.8rem;
             border: 1px solid white;
+        }
+
+        /* Event Details Formatting */
+        .event-details {
+            font-size: 1.15rem; /* Sized comfortably between h2 and p */
+            color: var(--pitch-green);
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
 
         /* Fan Showcase Section */
@@ -102,7 +110,7 @@
             transform: scale(1.1);
         }
 
-        /* The New Bottom Bar */
+        /* The Bottom Bar */
         .supporter-info-bar {
             margin-top: 15px;
             padding: 10px;
@@ -161,16 +169,10 @@
             </div>
 
             <div class="content">
-                
-                <div class="showcase-container">
-                    <h3 style="margin:0; color: var(--pitch-green); font-size: 1.1rem;">Supported Teams</h3>
-                    
-                    <div id="flag-showcase" class="flag-showcase">
-                        </div>
 
-                    <div id="supporter-info" class="supporter-info-bar">
-                        Hover or tap a flag to see the fans
-                    </div>
+                <div class="event-details">
+                    <strong>Where:</strong> 140 Pierce St, Erie, CO 80516<br>
+                    <strong>When:</strong> June 13, 2026 (1:00 pm - midnight)
                 </div>
 
                 <h2>Match Day Schedule</h2>
@@ -196,16 +198,27 @@
                 </table>
 
                 <div class="info-box">
-                    Swing by any time from 1:00 pm to Midnight for this open house-style party. We'll have snacks and drinks out all day. We’ll get a keg (Buffalo Gold or Stampede). No need to bring any food/drink, but if you just like cooking feel free to bring a favorite world dish. 
-                    <br><br>
-                    In the evening we'll get a fire and the sauna going. Also, please bring containers to bring some beer home.
+                    Swing by any time from 1:00 pm to Midnight for this open house-style party. We'll have snacks and drinks out all day. We’ll get a keg (Buffalo Gold or Stampede). No need to bring any food/drink, but if you like cooking feel free to bring a favorite world dish. We'll have multiple TV's playing the games. Cornhole will be set up in the backyard. In the evening we'll get a fire and the sauna going.
                 </div>
 
                 <h2>What to Bring</h2>
-                <ul style="color: #444; line-height: 1.6;">
-                    <li>a lawn chair</li>
-                    <li>friends/family</li>
+                <ul style="color: #444; line-height: 1.6; margin-bottom: 30px;">
+                    <li>lawn chair</li>
+                    <li>friends / family</li>
+                    <li>lawn games</li>
+                    <li>container to bring home beer</li>
                 </ul>
+
+                <div class="showcase-container">
+                    <h3 style="margin:0; color: var(--pitch-green); font-size: 1.1rem;">Supported Teams</h3>
+                    
+                    <div id="flag-showcase" class="flag-showcase">
+                        </div>
+
+                    <div id="supporter-info" class="supporter-info-bar">
+                        Hover or tap a flag to see the fans
+                    </div>
+                </div>
 
                <h2>RSVP</h2>
                 <div id="form-container" style="width: 100%; text-align: center; margin-top: 20px;">                
